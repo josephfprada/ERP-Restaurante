@@ -1,0 +1,22 @@
+body {
+    background-color: #eeee94;
+}
+
+#contenido{
+    background-color: azure;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 5% 42.5% 5% 42.5% 5%;
+}
+
+#cuerpo{
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+}
+
+#vertical{
+    height: 90%;
+    width: 2px;
+    background-color: rgb(199, 208, 209);
+}
+
