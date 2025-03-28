@@ -26,7 +26,7 @@ class Empleado(models.Model):
     telefonoEmpleado = models.CharField(max_length=12, null=False, blank=False)
     fecha_ingreso = models.DateTimeField(null=False, blank=False)
     puestoEmpleado = models.CharField(max_length=100, null=False, blank=False)
-    salarioEmpleado = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False)
+    salarioEmpleado = models.DecimalField(max_digits=10, null=False, blank=False)
     estado = models.CharField(max_length=8, null=False, blank=False)
 
     class Meta:
