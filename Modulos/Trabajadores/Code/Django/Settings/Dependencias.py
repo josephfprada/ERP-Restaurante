@@ -6,7 +6,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Your HR Module
-    'HumanResources',  # <-- Make sure your app is listed here
+    # Modulo RH
+    'HumanResources',
     'rest_framework',   # If using Django REST Framework
 ]
