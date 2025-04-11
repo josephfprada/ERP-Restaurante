@@ -4,6 +4,7 @@ from .models import (
     Capacitacion, Beneficios, Desempeno, Permiso, RelacionLaboral
 )
 
+#Implementacion de las extenciones necesarias - BD
 admin.site.register(Empleado)
 admin.site.register(Departamento)
 admin.site.register(EmpleadoDepartamento)
