@@ -4,6 +4,17 @@ body {
     background-size: cover;
 }
 
+header{
+    display: grid;
+    grid-template-columns: 5% 90% 5%;
+}
+
+#cont_header{    
+    background-color: rgb(255, 255, 241);
+    border-radius: 10px;
+    display: flex;
+}
+
 .cuerpo{
     display: grid;
     grid-template-columns: 30% 40% 30%;
