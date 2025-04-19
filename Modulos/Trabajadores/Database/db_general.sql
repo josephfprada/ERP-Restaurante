@@ -10,10 +10,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
 
@@ -30,11 +26,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Empleado` (
   `emailEmpleado` VARCHAR(100) NOT NULL,
   `fecha_ingreso` DATE NOT NULL,
   `puestoEmpleado` VARCHAR(100) NOT NULL,
-  `salarioEmpleado` DECIMAL(10) NOT NULL,
-  `estado` VARCHAR(8) GENERATED ALWAYS AS () VIRTUAL,
-  PRIMARY KEY (`idEmpleado`))
-ENGINE = InnoDB;
-
+  `salarioEmpleado` DECIMAL(10,2) NOT NULL,
+  `estado` VARCHAR(8) GENERATED ALWAYS AS ('ACTIVE') VIRTUAL,  -- Corregido
+  PRIMARY KEY (`idEmpleado`)
+) ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Capacitacion`
@@ -52,9 +47,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Capacitacion` (
     FOREIGN KEY (`idEmpleado`)
     REFERENCES `mydb`.`Empleado` (`idEmpleado`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Desempeño`
@@ -72,9 +66,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Desempeño` (
     FOREIGN KEY (`idEmpleado`)
     REFERENCES `mydb`.`Empleado` (`idEmpleado`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Beneficios`
@@ -92,9 +85,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Beneficios` (
     FOREIGN KEY (`idEmpleado`)
     REFERENCES `mydb`.`Empleado` (`idEmpleado`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Permiso`
@@ -112,9 +104,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Permiso` (
     FOREIGN KEY (`idEmpleado`)
     REFERENCES `mydb`.`Empleado` (`idEmpleado`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Departamento`
@@ -123,9 +114,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Departamento` (
   `idDepartamento` INT NOT NULL,
   `nombre` VARCHAR(100) NOT NULL,
   `descripcion` MEDIUMTEXT NOT NULL,
-  PRIMARY KEY (`idDepartamento`))
-ENGINE = InnoDB;
-
+  PRIMARY KEY (`idDepartamento`)
+) ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`empleado_departamento`
@@ -135,24 +125,23 @@ CREATE TABLE IF NOT EXISTS `mydb`.`empleado_departamento` (
   `idDepartamento` INT NOT NULL,
   INDEX `idEmpleado_idx` (`idEmpleado` ASC, `idDepartamento` ASC) VISIBLE,
   CONSTRAINT `idEmpleado`
-    FOREIGN KEY (`idEmpleado` , `idDepartamento`)
-    REFERENCES `mydb`.`Empleado` (`idEmpleado` , `idEmpleado`)
+    FOREIGN KEY (`idEmpleado`)
+    REFERENCES `mydb`.`Empleado` (`idEmpleado`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `idDepartamento`
-    FOREIGN KEY ()
-    REFERENCES `mydb`.`Departamento` ()
+    FOREIGN KEY (`idDepartamento`)
+    REFERENCES `mydb`.`Departamento` (`idDepartamento`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Posicion_Laboral`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Posicion_Laboral` (
   `idPosicion` INT NOT NULL,
-  `Puesto_trabajo` INT NOT NULL,
+  `Puesto_trabajo` VARCHAR(100) NOT NULL,  -- Corregido a VARCHAR
   `IdDepartamento` INT NOT NULL,
   `fecha_inicio` DATE NOT NULL,
   `fecha_fin` DATE NULL,
@@ -162,9 +151,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Posicion_Laboral` (
     FOREIGN KEY (`IdDepartamento`)
     REFERENCES `mydb`.`Departamento` (`idDepartamento`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Pago`
@@ -185,9 +173,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Pago` (
     FOREIGN KEY (`idEmpleado`)
     REFERENCES `mydb`.`Empleado` (`idEmpleado`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Asistencia`
@@ -205,9 +192,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Asistencia` (
     FOREIGN KEY (`idEmpleado`)
     REFERENCES `mydb`.`Empleado` (`idEmpleado`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Documentos`
@@ -224,9 +210,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Documentos` (
     FOREIGN KEY (`idEmpleado`)
     REFERENCES `mydb`.`Empleado` (`idEmpleado`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
