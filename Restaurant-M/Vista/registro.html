@@ -24,18 +24,18 @@
         <div><!-- Div de margen --></div>
         <div id="contenido">
             <div><!-- Div de margen --></div>            
-            <form>
+            <form action="../Controlador/registro.php" method="POST">
                 <h2>Registro</h2>
-                <label> Nombre del restaurante:</label><br>
-                <input type="text"><br>
-                <label> Nombre gerente y/o dueño:</label><br>
-                <input type="text"><br>
-                <label> Correo electrónico:</label><br>
-                <input type="email"><br>
-                <label> Contraseña:</label><br>
-                <input type="password"><br>
+                <label for="restaurant"> Nombre del restaurante:</label><br>
+                <input type="text" name="restaurante" id="restaurant"><br>
+                <label for="admin"> Nombre gerente y/o dueño:</label><br>
+                <input type="text" name="gerente" id="admin"><br>
+                <label for="email"> Correo electrónico:</label><br>
+                <input type="email" name="correo" id="email"><br>
+                <label for="password"> Contraseña:</label><br>
+                <input type="password" name="contrasena" id="password"><br>
                 <div style="height:10px"> <!-- Div vacio --> </div>
-                <button type="submit" onclick="sinProgramar()">Iniciar Plan</button><br>
+                <button type="submit">Iniciar Plan</button><br>
                 <a href="planes.html">Ver de nuevo los planes</a><br><br>
                 <a href="index.html">¿Ya tienes una cuenta?</a>
                 <div style="height:20px"> <!-- Div vacio --> </div>
