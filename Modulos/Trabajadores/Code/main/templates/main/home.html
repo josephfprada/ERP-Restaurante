@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+        integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Recursos Humanos | Restaurant-M</title>
+</head>
+
+<body>
+    <div class="container mt-5 text-center">
+        <h1>Dashboard General</h1>
+
+        <button class="btn btn-primary mt-4" type="button" onclick="mostrarFormulario()">Insertar nuevo empleado</button>
+
+        <!-- Formulario emergente oculto -->
+        <div id="formularioAuth" class="mt-4" style="display: none;">
+            <h5>Autenticación requerida</h5>
+            <input type="text" id="usuario" placeholder="Usuario" class="form-control mb-2" />
+            <input type="password" id="contrasena" placeholder="Contraseña" class="form-control mb-2" />
+            <button class="btn btn-success" onclick="verificarCredenciales()">Confirmar</button>
+            <div id="mensajeError" class="alert alert-danger mt-3" style="display: none;">
+                Credenciales incorrectas.
+            </div>
+        </div>
+
+        <!-- Tabla de empleados -->
+        {% if empleados %}
+        <div class="mt-5">
+            <h3>Lista de Empleados</h3>
+            <table class="table table-bordered mt-3">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Puesto</th>
+                        <th>Salario</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for empleado in empleados %}
+                    <tr>
+                        <td>{{ empleado.idEmpleado }}</td>
+                        <td>{{ empleado.nombreEmpleado }}</td>
+                        <td>{{ empleado.apellidoEmpleado }}</td>
+                        <td>{{ empleado.puestoEmpleado }}</td>
+                        <td>${{ empleado.salarioEmpleado }}</td>
+                        <td>{{ empleado.estado }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="mt-5">No hay empleados registrados.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        function mostrarFormulario() {
+            document.getElementById('formularioAuth').style.display = 'block';
+        }
+
+        function verificarCredenciales() {
+            const usuario = document.getElementById("usuario").value.trim();
+            const contrasena = document.getElementById("contrasena").value.trim();
+            const errorDiv = document.getElementById("mensajeError");
+
+            if (usuario === "admin" && contrasena === "admin") {
+                window.location.href = "{% url 'create' %}";
+            } else {
+                errorDiv.style.display = "block";   
+                setTimeout(() => {
+                    errorDiv.style.display = "none";
+                }, 5000);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
