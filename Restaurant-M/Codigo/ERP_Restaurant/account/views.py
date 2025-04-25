@@ -1,24 +1,50 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
-def user_login(request):
+
+# Vista del login
+def vistaLogin(request):
+    form = LoginForm(request.POST or None)
+    message = ''
+    
     if request.method == 'POST':
-        form = LoginForm(request.POST)
         if form.is_valid():
-            cd = form.cleaned_data
-            user = authenticate(request,
-                                username=cd['username'],
-                                password=cd['password'])
-            if user is not None:
-                if user.is_active:
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            
+            try:
+                user = User.objects.get(email=email)
+                user = authenticate(request, username=user.username, password=password)
+                
+                if user is not None:
                     login(request, user)
-                    return HttpResponse('Authenticated')
+                    return redirect('home')  # Cambia esto a la URL que quieras redirigir
                 else:
-                    return HttpResponse('Disable account')
-            else:
-                return HttpResponse('Invalid login')
+                    message = 'Credenciales inválidas'
+            except User.DoesNotExist:
+                message = 'El usuario no existe'
+
+    return render(request, 'ERP_Restaurant/login.html', {'form': form, 'message': message})
+
+# Vista de los planes
+def vistaPlanes(response):
+    return render(response, 'ERP_Restaurant/planes.html', {})
+
+# Vista del registro
+def vistaRegistro(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Cuenta creada exitosamente')
+            return redirect('home')
     else:
-        form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+        form = UserCreationForm()
+    return render(request, 'ERP_Restaurant/registro.html',{
+                  'form': form,
+                  'tittle': 'Registro'})

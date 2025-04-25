@@ -1,7 +1,6 @@
 from django import forms
 
+# Formulario de loggeo
 class LoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'User name / Email',
-                                                             'class': 'login_input'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password',
-                                                             'class': 'login_input'}))
+    email = forms.EmailField(label='Correo electrónico', max_length=100)
+    password = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
