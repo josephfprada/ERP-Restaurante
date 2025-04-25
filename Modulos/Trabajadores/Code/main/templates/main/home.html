@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+    integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+  <title>Recursos Humanos | Restaurant-M</title>
+
+  <style>
+    .vh-100 {
+      height: 100vh;
+    }
+
+    .border-right {
+      border-right: 1px solid #ccc;
+    }
+
+    .border-left {
+      border-left: 1px solid #ccc;
+    }
+
+    /* Optional styling for collapsible menu items */
+    .nav-link {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 class="text-center p-3">Dashboard General</h1>
+  <hr>
+
+  <div class="container-fluid">
+    <div class="row vh-100">
+      <!-- Left Sidebar -->
+      <div class="col-md-3 border-right">
+        <h5 class="text-center mt-3">Menu</h5>
+        <ul class="nav flex-column px-3 mt-4">
+      
+          <!-- 1 -->
+          <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" href="#gestionPersonalSub" role="button" aria-expanded="false">
+              Gestión de Personal
+              <span class="badge badge-primary badge-pill" id="badgeGestionPersonal"></span>
+            </a>
+            <div class="collapse" id="gestionPersonalSub">
+              <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="#">- Perfil de empleados</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">- Contratos laborales</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">- Evaluaciones de desempeño</a></li>
+              </ul>
+            </div>
+          </li>
+      
+          <!-- 2 -->
+          <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" href="#nominaSub" role="button" aria-expanded="false">
+              Nómina y Beneficios
+              <span class="badge badge-primary badge-pill" id="badgeNomina">11</span>
+            </a>
+            <div class="collapse" id="nominaSub">
+              <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="#">- Cálculo de sueldos</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">- Pagos y transferencias</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">- Beneficios de empleados</a></li>
+              </ul>
+            </div>
+          </li>
+      
+          <!-- 3 -->
+          <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" href="#desarrolloSub" role="button" aria-expanded="false">
+              Desarrollo y Capacitación
+              <span class="badge badge-primary badge-pill" id="badgeDesarrollo">5</span>
+            </a>
+            <div class="collapse" id="desarrolloSub">
+              <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="#">- Plan de formación</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">- Desarrollo de carrera</a></li>
+              </ul>
+            </div>
+          </li>
+      
+          <!-- 4 -->
+          <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" href="#controlAsistenciaSub" role="button" aria-expanded="false">
+              Control de Asistencia
+              <span class="badge badge-primary badge-pill" id="badgeControlAsistencia"></span>
+            </a>
+            <div class="collapse" id="controlAsistenciaSub">
+              <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="#">- Control de asistencia</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">- Calendario de vacaciones</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">- Horas extras</a></li>
+              </ul>
+            </div>
+          </li>
+      
+          <!-- 5 -->
+          <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" href="#reclutamientoSub" role="button" aria-expanded="false">
+              Reclutamiento y Selección
+              <span class="badge badge-primary badge-pill" id="badgeReclutamiento">1</span>
+            </a>
+            <div class="collapse" id="reclutamientoSub">
+              <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="#">- Publicación de vacantes</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">- Gestión de candidatos</a></li>
+              </ul>
+            </div>
+          </li>
+      
+          <!-- 6 -->
+          <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" href="#evaluacionesSub" role="button" aria-expanded="false">
+              Evaluaciones y Desempeño
+              <span class="badge badge-primary badge-pill" id="badgeEvaluaciones"></span>
+            </a>
+            <div class="collapse" id="evaluacionesSub">
+              <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="#">- Evaluaciones de desempeño</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">- Feedback</a></li>
+              </ul>
+            </div>
+          </li>
+      
+          <!-- 7 -->
+          <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" href="#relacionesSub" role="button" aria-expanded="false">
+              Relaciones Laborales y Bienestar
+              <span class="badge badge-primary badge-pill" id="badgeRelaciones">2</span>
+            </a>
+            <div class="collapse" id="relacionesSub">
+              <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="#">- Gestión de conflictos</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">- Salud ocupacional</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">- Políticas internas</a></li>
+              </ul>
+            </div>
+          </li>
+      
+          <!-- 8 -->
+          <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" href="#informesSub" role="button" aria-expanded="false">
+              Informes y Auditoría
+              <span class="badge badge-primary badge-pill" id="badgeInformes"></span>
+            </a>
+            <div class="collapse" id="informesSub">
+              <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="#">- Reportes de nómina</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">- Cumplimiento normativo</a></li>
+              </ul>
+            </div>
+          </li>
+      
+          <!-- 9 -->
+          <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" href="#salidasSub" role="button" aria-expanded="false">
+              Gestión de Salidas y Terminación de Contrato
+              <span class="badge badge-primary badge-pill" id="badgeSalidas"></span>
+            </a>
+            <div class="collapse" id="salidasSub">
+              <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="#">- Proceso de desvinculación</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">- Entrevistas de salida</a></li>
+              </ul>
+            </div>
+          </li>
+      
+        </ul>
+      </div>
+      
+      
+
+      <!-- Center Panel -->
+      <div class="col-md-6 text-center">
+        <button class="btn btn-primary mt-4" onclick="mostrarFormulario()">Ingresar nuevo empleado</button>
+
+        <!-- Formulario emergente -->
+        <div id="formularioAuth" class="mt-4" style="display: none;">
+          <h5>Autenticación requerida</h5>
+          <input type="text" id="usuario" placeholder="Usuario" class="form-control mb-2" />
+          <input type="password" id="contrasena" placeholder="Contraseña" class="form-control mb-2" />
+          <button class="btn btn-success" onclick="verificarCredenciales()">Continuar</button>
+          <button class="btn btn-secondary" onclick="cerrarFormularioAuth()">Cancelar</button>
+          <div id="mensajeError" class="alert alert-danger mt-3" style="display: none;">
+              Credenciales incorrectas.
+          </div>
+      </div>
+
+        <!-- Tabla de empleados -->
+        {% if empleados %}
+        <div class="mt-5 text-left">
+          <h3>Lista de Empleados</h3>
+          <table class="table table-bordered mt-3">
+            <thead class="thead-dark">
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Puesto</th>
+                <th>Salario</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for empleado in empleados %}
+              <tr>
+                <td>{{ empleado.idEmpleado }}</td>
+                <td>{{ empleado.nombreEmpleado }}</td>
+                <td>{{ empleado.apellidoEmpleado }}</td>
+                <td>{{ empleado.puestoEmpleado }}</td>
+                <td>${{ empleado.salarioEmpleado }}</td>
+                <td>{{ empleado.estado }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <p class="mt-5">No hay empleados registrados.</p>
+        {% endif %}
+      </div>
+
+      <!-- Right Placeholder Panel -->
+      <div class="col-md-3 border-left text-center">
+        <h5 class="mt-5 text-muted">Panel reservado</h5>
+        <p class="text-muted">Para futuras funcionalidades.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function cerrarFormularioAuth() {
+          document.getElementById('formularioAuth').style.display = 'none';
+      }
+    
+    function mostrarFormulario() {
+      document.getElementById('formularioAuth').style.display = 'block';
+    }
+
+    function mostrarFormularioAuth() {
+          document.getElementById('formularioAuth').style.display = 'block';
+          document.getElementById('mensajeError').style.display = 'none'; // Asegurarse de que el mensaje de error esté oculto al mostrar el formulario
+      }
+
+    function verificarCredenciales() {
+      const usuario = document.getElementById("usuario").value.trim();
+      const contrasena = document.getElementById("contrasena").value.trim();
+      const errorDiv = document.getElementById("mensajeError");
+
+      if (usuario === "admin" && contrasena === "admin") {
+        window.location.href = "{% url 'create' %}";
+      } else {
+        errorDiv.style.display = "block";
+        setTimeout(() => {
+          errorDiv.style.display = "none";
+        }, 5000);
+      }
+    }
+  </script>
+
+  <!-- Bootstrap 4 JS y dependencias -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
