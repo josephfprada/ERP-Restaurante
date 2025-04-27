@@ -11,3 +11,4 @@ Para utlizar las funciones de Django, primero hay que descargar django en Visual
 Modulos funcionales:
 1. Modulo Trabajadores. "Modulos/Trabajadores/Code" (usuario "admin" y contraseña "admin")
 2. Login de la aplicación web. "Restaurante-M/Codigo/ERP_Restaurant"
+3. Inventario. "Modulos/Inventario/src"
