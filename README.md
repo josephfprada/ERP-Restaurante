@@ -9,4 +9,5 @@ Para utlizar las funciones de Django, primero hay que descargar django en Visual
 3. Al escribir el comando empezara a aparecera la url de prueba, manten el mouse encima y oprime "follow link" (o copia y pega la url, "https://127.0.0.1:8080/")
 
 Modulos funcionales:
-1. Modulo Trabajadores. (usuario "admin" y contraseña "admin")
+1. Modulo Trabajadores. "Modulos/Trabajadores/Code" (usuario "admin" y contraseña "admin")
+2. Login de la aplicación web. "Restaurante-M/Codigo/ERP_Restaurant"
