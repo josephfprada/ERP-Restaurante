@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="{% static "css/erp.css" %}">
-    <script src="script.js"></script>
+    <script src="{% static 'javaScript/script.js' %}"></script>
 </head>
 <body>
     <header>
@@ -19,7 +19,7 @@
                 <h1>Restaurant M</h1>
             </div>
             <div class="derecha">
-                <div class="centro">
+                <div class="hCentro">
                     <img src="{% static 'img/user.jpg' %}" class="usuario"><br>
                     <label>Gerente: {{ nombre_gerente }}</label>
                 </div>
@@ -31,14 +31,27 @@
     <div class="contenido">
         <div class="modulos">
             <!-- Div de las opciones disponibles -->
-            <p>Módulos</p>
-            <p>Trabajadores</p>
-            <p>Inventario</p>
-            <p>Finanzas</p>
+            <div class="centro">
+                <h2>Módulos</h2>
+            </div>
+            <div onclick="window.location.href='{% url 'index' %}'" style="cursor: pointer;" class="opModulo">
+                <label>Recursos Humanos</p>
+            </div>
+            <div class="opModulo">
+                <label>Inventario</p>
+            </div>
+            <div class="opModulo">
+                <label>Ventas</p>
+            </div>
+            <div class="opModulo">
+                <label>Contabilidad</p>
+            </div>
+            <div class="opModulo">
+                <label>Clientes y Proveedores</p>
+            </div>
         </div>
-        <div>
-            <!-- Div del cuerpo -->
-            <p></p>
+        <div class="cuerpo">
+            <h2 class="subLinea">{{ nomRes }}</h2>
         </div>
     </div>
 </body>

@@ -5,6 +5,15 @@ from .forms import LoginForm, registrarGerente, registrarRestaurante
 from .models import Gerentes, Restaurantes
 from django.contrib import messages
 
+idGerente = '0'
+
+def setGerenteAct(id):
+    global idGerente
+    idGerente = id
+
+def getGerenteAct():
+    return idGerente
+
 def vistaLogin(request):
     form = LoginForm()
     messages = ''
@@ -20,6 +29,7 @@ def vistaLogin(request):
                 if gerente.passwordGer == password:
                     request.session['gerente_id'] = gerente.idGerente
                     request.session['gerente_nombre'] = gerente.nombreGer
+                    setGerenteAct(gerente.idGerente)
                     return redirect('home')  # Reemplaza con tu vista principal
                 else:
                     messages = 'Contraseña incorrecta'
@@ -66,8 +76,8 @@ def vistaRegistroRes(request):
         form = registrarRestaurante(request.POST)
         if form.is_valid():
             form.save()
+            setGerenteAct(idGer)
             return redirect('home')
-
     return render(request, 'ERP_Restaurant/registroRes.html', {
         'formRes': form,
         'idGer': idGer,
@@ -76,11 +86,19 @@ def vistaRegistroRes(request):
 
 # Vista del home
 def vistaHome(request):
-    ger = Gerentes.objects.last()
-
+    idGer = getGerenteAct()
+    
+    ger = Gerentes.objects.filter(idGerente = idGer).first()
+    
     nombreGer = ger.nombreGer if ger else "No asignado"
+    
+    res = Restaurantes.objects.filter(idGerente =  idGer).first()
+    nomRes = res.nombreRes if res else "No asignado"
+    
+    print(nomRes)
 
     return render(request, 'ERP_Restaurant/home.html', {
-        'nombre_gerente': nombreGer
+        'nombre_gerente': nombreGer,
+        'nomRes': nomRes
     })
 

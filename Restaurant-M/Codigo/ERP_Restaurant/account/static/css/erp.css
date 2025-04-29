@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(239, 239, 170);
+    background-color: #FFE082;
 }
 
 header{
@@ -11,7 +11,7 @@ header{
 .hContenido{
     display: grid;
     grid-template-columns: 50% 50%;
-    background-color: rgb(255, 255, 241);
+    background-color: #FFFFE0;
     border-radius: 10px;
 }
 
@@ -30,19 +30,41 @@ header{
     text-align: right;
 }
 
-.centro{
+.hCentro{
     display: inline-block;
+    text-align: center;
+    padding: 5px;
+}
+
+.centro{
     text-align: center;
     padding: 5px;
 }
 
 .contenido{
     display:grid;
-    background-color: rgb(255, 255, 241);
+    background-color: #FFFFE0;
     grid-template-columns: 15% 85%;
 }
 
 .modulos{
+    background-color: #F1F0EF;
     border-right: 2px solid lightgray;
-    padding-left: 10px;
+    padding-left: 5px;
+}
+
+.opModulo{
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    padding: 5px;
+    padding-top: 5px;
+}
+
+.opModulo:hover{
+    background-color: #E3E0DE;
+}
+
+.cuerpo{
+    padding: 10px;
 }
