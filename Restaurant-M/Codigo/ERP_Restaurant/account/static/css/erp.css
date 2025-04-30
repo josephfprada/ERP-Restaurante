@@ -59,6 +59,7 @@ header{
     transition: background-color 0.3s ease;
     padding: 5px;
     padding-top: 5px;
+    cursor: pointer;
 }
 
 .opModulo:hover{
@@ -67,4 +68,16 @@ header{
 
 .cuerpo{
     padding: 10px;
+}
+
+.opContenido{
+    display: none;
+    padding: 5px;
+    padding-left: 10px;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 5px;
+}
+
+.opContenido:hover{
+    background-color: #E3E0DE;
 }

@@ -35,23 +35,25 @@
                 <h2>Módulos</h2>
             </div>
             <div onclick="window.location.href='{% url 'index' %}'" style="cursor: pointer;" class="opModulo">
-                <label>Recursos Humanos</p>
+                <label>Recursos Humanos</label>
             </div>
             <div class="opModulo">
-                <label>Inventario</p>
+                <label>Inventario</label>
             </div>
             <div class="opModulo">
-                <label>Ventas</p>
+                <label>Ventas</label>
             </div>
             <div class="opModulo">
-                <label>Contabilidad</p>
+                <label>Contabilidad</label>
             </div>
-            <div class="opModulo">
-                <label>Clientes y Proveedores</p>
+            <div onclick="window.location.href='{% url 'homeCliPro' %}'" style="cursor: pointer;" class="opModulo">
+                <label>Clientes y Proveedores</label>
             </div>
+            <br>
         </div>
         <div class="cuerpo">
             <h2 class="subLinea">{{ nomRes }}</h2>
+            <hr style="width: 95%">
         </div>
     </div>
 </body>
