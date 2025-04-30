@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/erp.css" %}">
+    <script src="{% static 'javaScript/script.js' %}"></script>
+</head>
+<body>
+    <header>
+        <div><!-- Div vacio --></div>
+        <div class="hContenido">
+            <div class="izquierda">
+                <a href="{% url 'login' %}">
+                    <img src="{% static 'img/Logo.png' %}" style="width: 50%">
+                </a>            
+                <h1>Restaurant M</h1>
+            </div>
+            <div class="derecha">
+                <div class="hCentro">
+                    <img src="{% static 'img/user.jpg' %}" class="usuario"><br>
+                    <label>Gerente: {{ nombre_gerente }}</label>
+                </div>
+            </div>
+        </div>
+        <div><!-- Div vacio --></div>
+    </header>
+    <div style="height:40px"> <!-- Div vacio --> </div>
+    <div class="contenido">
+        <div class="modulos">
+            <div class="centro">
+                <h2>Opciones</h2>
+            </div>
+            <!-- Menu despegable clientes -->
+            <div onClick="mostrarOpCli()" class="opModulo">
+                <labe>Clientes</labe>
+            </div>
+            <div id="Cli1" class="opContenido"> - Ver clientes</div>
+            <div id="Cli2" class="opContenido"> - Añadir clientes</div>
+            <div id="Cli3" class="opContenido"> - Modificar clientes</div>
+            <!-- Menu despegable proveedores -->
+            <div onClick="mostrarOpPro()" class="opModulo">
+                <labe>Proveedores</labe>
+            </div>
+            <div id="Pro1" class="opContenido"> - Ver proveedores</div>
+            <div id="Pro2" class="opContenido"> - Añadir proveedor</div>
+            <div id="Pro3" class="opContenido"> - Modificar proveedor</div>
+            <br>
+        </div>
+        <div class="cuerpo">
+            <h2 class="subLinea">{{ nomRes }}</h2>
+            <hr style="width: 95%">
+        </div>
+    </div>
+</body>
+</html>
+
