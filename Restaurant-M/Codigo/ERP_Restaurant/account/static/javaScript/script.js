@@ -17,3 +17,11 @@ function mostrarOpPro() {
         div.style.display = (div.style.display === 'block') ? 'none' : 'block';
     });
 }
+
+function mostrarAgregarCli() {
+    const ids = ['AgregarCli'];
+    ids.forEach(id => {
+        const div = document.getElementById(id);
+        div.style.display = (div.style.display === 'block') ? 'none' : 'block';
+    });
+}

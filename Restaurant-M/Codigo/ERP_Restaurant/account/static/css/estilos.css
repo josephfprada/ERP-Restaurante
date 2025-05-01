@@ -69,6 +69,7 @@ header{
 input[type="password"],
 input[type="email"],
 input[type="text"],
+input[type="number"],
 textarea {
     width: 90%;
     padding: 8px;
@@ -89,6 +90,7 @@ button{
     font-size: 16px;
     cursor: pointer;
 }
+
 button:hover {
     background-color: #f3bf31;
 }
