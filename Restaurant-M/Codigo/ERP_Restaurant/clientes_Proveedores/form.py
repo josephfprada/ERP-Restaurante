@@ -30,7 +30,7 @@ class registrarCliente(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Ej: 3152089870'
             }),
-            'idRestaurante': forms.Textarea(attrs={
+            'idRestaurante': forms.NumberInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Revisar valor'
             })}

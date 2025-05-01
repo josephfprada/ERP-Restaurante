@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Agregar nuevo cliente</title>
     <link rel="stylesheet" type="text/css" href="{% static "css/erp.css" %}">
     <script src="{% static 'javaScript/script.js' %}"></script>
 </head>
@@ -41,14 +41,16 @@
                 <label>Clientes</label>
             </div>
             <div id="Cli1" onclick="window.location.href='{% url 'listarCli' %}'" class="opContenido"> - Ver clientes</div>
-            <div id="Cli2" onclick="window.location.href='{% url 'agregarCli' %}'" class="opContenido"> - Añadir cliente</div>
+            <div id="Cli2" class="opContenido"> - Añadir cliente</div>
             <div id="Cli3" class="opContenido"> - Modificar clientes</div>
             <!-- Menu despegable proveedores -->
-            <div onClick="mostrarOpPro()" class="opModulo">
+            <div class="opModulo">
                 <label>Proveedores</label>
             </div>
             <div id="Pro1" class="opContenido"> - Ver proveedores</div>
-            <div id="Pro2" class="opContenido"> - Añadir proveedor</div>
+            <div id="Pro2" class="opContenido">
+                <label>- Añadir proveedor</label>
+            </div>
             <div id="Pro3" class="opContenido"> - Modificar proveedor</div>
             <br>
         </div>
@@ -56,17 +58,16 @@
             <h2 class="subLinea">{{ nomRes }}</h2>
             <hr style="width: 95%">
             <!-- Agregar un cliente nuevo -->
-            <div id="AgregarCli" class="formulario">
-                <form method="POST">
-                    <h3>Añadir Cliente</h3>
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    {% if msg %}
-                        <p style="color: red;">{{ msg }}</p>
-                    {% endif %}
-                    <button type="submitGer" name="submit">Guardar Gerente</button>
-                </form>
-            </div>
+            <form method="POST">
+                <h3>Añadir Cliente</h3>
+                {% csrf_token %}
+                {{ formCli.as_p }}
+                {% if msg %}
+                    <p style="color: red;">{{ msg }}</p>
+                {% endif %}
+                <p>Id del restaurante "{{nomRes}}" es: {{idRes}}</p>
+                <button type="submitGer" name="submit">Guardar Cliente</button>
+            </form>
         </div>
     </div>
 </body>
