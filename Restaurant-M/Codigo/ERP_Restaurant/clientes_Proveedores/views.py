@@ -70,9 +70,9 @@ def vistaListarClientes(request):
     
     res = Restaurantes.objects.filter(idGerente =  idGer).first()
     nomRes = res.nombreRes if res else "No asignado"
-    idRestaurante = res.idRestaurante if res else "No asignado"
-    
-    clientes = Clientes.objects.all()
+    idRes = res.idRestaurante if res else "0"
+
+    clientes = Clientes.objects.filter(idRestaurante = idRes)
     return render(request, 'html/listarCli.html', {
         'clientes': clientes,
         'nombre_gerente': nombreGer,
