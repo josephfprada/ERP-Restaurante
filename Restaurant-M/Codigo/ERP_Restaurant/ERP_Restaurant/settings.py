@@ -19,6 +19,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# Aquí encontraremos las app que se hayan creado, como "account", "Recursos_Humanos" y "CLientes_Proveedores"
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -29,7 +30,10 @@ INSTALLED_APPS = [
     'account',
     'Recursos_Humanos.apps.MainConfig',
     'clientes_Proveedores',
+    # Al crear una nueva app tienes que escribir el nombre aquí
 ]
+
+# De aquí en adelante no hemos tocado nada
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -4,11 +4,16 @@ from django.core.validators import MinLengthValidator, MaxLengthValidator, Email
 from django.core.exceptions import ValidationError
 from datetime import date, timedelta
 
+# Esta es un archivo que no se crea junto al proyecto
+
+# Aquí temos los formularios, junto con su tipo de input, ejemplo y label
+
 # Registro del gerente del restaurante
 class registrarGerente(forms.ModelForm):
     class Meta:
         model = Gerentes
         fields = '__all__'
+        # Los nombres son tomados del modelo "Gerentes"
         widgets = {
             'idGerente': forms.NumberInput(attrs={
                 'class': 'form-control',
@@ -31,14 +36,16 @@ class registrarGerente(forms.ModelForm):
                 'placeholder': '******'
             })}
         
+        # Nombre en el modelo "Gerentes": texto del label 
         labels = {
-            'idGerente': 'ID del Gerent:',
+            'idGerente': 'ID del Gerente:',
             'nombreGer': 'Nombre del Gerente:',
             'emailGer': 'Correo Electrónico:',
             'telefonoGer': 'Teléfono de Contacto:',
             'passwordGer': 'Contraseña:',
         }
         
+    # No sé si sirva XD, ni me acordaba de esto
     def clean_email(self):
         email = self.cleaned_data['email']
         if Gerentes.objects.filter(email=email).exists():

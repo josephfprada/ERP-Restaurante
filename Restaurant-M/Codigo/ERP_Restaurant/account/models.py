@@ -1,5 +1,9 @@
 from django.db import models
-    
+
+# Los modelos son como las tablas de SQL
+
+# Tengo un diagrama ilustrando estos modelos en "\ERP-Restaurante-main\Restaurant-M\Base de datos"
+
 # Tabla de los gerentes
 class Gerentes(models.Model):
     idGerente = models.AutoField(primary_key=True)
@@ -10,6 +14,7 @@ class Gerentes(models.Model):
     
     class Meta:
         managed = True
+        # Nombre de la tabla
         db_table = 'Gerentes'
         
     def _str_(self):
@@ -24,6 +29,7 @@ class Restaurantes(models.Model):
     
     class Meta:
         managed = True
+        # Nombre de la tabla
         db_table = 'Restaurantes'
         
     def _str_(self):
