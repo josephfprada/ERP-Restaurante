@@ -18,6 +18,10 @@ class registrarCliente(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Ej: Pedro Pascal'
             }),
+            'telefonoCli': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Ej: 3152089870'
+            }),
             'cedulaCli': forms.NumberInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Ej: 107878768'
@@ -26,18 +30,32 @@ class registrarCliente(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Ej: PP@email.com'
             }),
-            'telefonoCli': forms.NumberInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Ej: 3152089870'
-            }),
             'idRestaurante': forms.NumberInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Revisar valor'
             })}
         
         labels = {
-            'idRestaurante': 'ID del Restaurante:',
-            'nombreRes': 'Nombre del Restaurante:',
-            'direccionRes': 'Dirección:',
-            'idGerente': 'Id del gerente',
+            'nombreCli': 'Nombre del Cliente*:',
+            'telefonoCli': 'Numero de Teléfono*:',
+            'cedulaCli': 'Cédula del Cliente:',
+            'emailCli': 'Email del Cliente:',
+            'idRestaurante': 'ID del Restaurante*:',
         }
+
+# Buscador del cliente
+class opBuscarCliente(forms.Form):
+    class Meta:
+        opBusqueda = [
+            ('nombreCli', 'Nombre'),
+            ('cedulaCli', 'Cédula'),
+            ('emailCli', 'Email'),
+            ('telefonoCli', 'Teléfono'),
+        ]
+        
+        buscaCliente = forms.ChoiceField(
+            choices = opBusqueda,
+            label = "Seleccionar opción",
+            widget=forms.Select(attrs={'class': 'form-control'})
+        )
+        

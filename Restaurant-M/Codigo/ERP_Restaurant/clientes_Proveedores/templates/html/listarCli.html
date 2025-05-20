@@ -13,7 +13,7 @@
         <div><!-- Div vacio --></div>
         <div class="hContenido">
             <div class="izquierda">
-                <a href="{% url 'login' %}">
+                <a href="{% url 'home' %}">
                     <img src="{% static 'img/Logo.png' %}" style="width: 50%">
                 </a>            
                 <h1>Restaurant M</h1>
@@ -42,7 +42,7 @@
             </div>
             <div id="Cli1" class="opContenido"> - Ver clientes</div>
             <div id="Cli2" onclick="window.location.href='{% url 'agregarCli' %}'" class="opContenido"> - Añadir cliente</div>
-            <div id="Cli3" class="opContenido"> - Modificar clientes</div>
+            <div id="Cli3" onclick="window.location.href='{% url 'actualizarCli' %}'" class="opContenido"> - Actualizar cliente</div>
             <!-- Menu despegable proveedores -->
             <div class="opModulo">
                 <label>Proveedores</label>
@@ -58,33 +58,35 @@
             <h2 class="subLinea">{{ nomRes }}</h2>
             <hr style="width: 95%">
             <!-- Agregar un cliente nuevo -->
-            <h3>Lista de los clientes</h3>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Cédula</th>
-                        <th>Email</th>
-                        <th>Teléfono</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for cliente in clientes %}
-                    <tr>
-                        <td>{{ cliente.idCliente }}</td>
-                        <td>{{ cliente.nombreCli }}</td>
-                        <td>{{ cliente.cedulaCli }}</td>
-                        <td>{{ cliente.emailCli }}</td>
-                        <td>{{ cliente.telefonoCli }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5">No hay clientes registrados.</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <div class="granFormulario">
+                <h3>Lista de los clientes</h3>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Cédula</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cliente in clientes %}
+                        <tr>
+                            <td>{{ cliente.idCliente }}</td>
+                            <td>{{ cliente.nombreCli }}</td>
+                            <td>{{ cliente.cedulaCli }}</td>
+                            <td>{{ cliente.emailCli }}</td>
+                            <td>{{ cliente.telefonoCli }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No hay clientes registrados.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>

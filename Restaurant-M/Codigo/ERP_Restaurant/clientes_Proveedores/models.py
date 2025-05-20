@@ -5,9 +5,9 @@ from account.models import Restaurantes
 class Clientes(models.Model):
     idCliente = models.AutoField(primary_key=True)
     nombreCli = models.CharField(max_length=45, null=False, blank=False)
-    cedulaCli = models.IntegerField(null=False, blank=False, unique=True)
-    emailCli = models.EmailField(max_length=45, null=False, blank=False, unique=True)
     telefonoCli = models.IntegerField(null=False, blank=False)
+    cedulaCli = models.IntegerField(blank=True, null=True, unique=True)
+    emailCli = models.EmailField(max_length=45, blank=True, null=True, unique=True)
     idRestaurante = models.IntegerField(models.ForeignKey(Restaurantes, on_delete=models.DO_NOTHING, db_column='idRestaurante'), null=False)
     
     class Meta:

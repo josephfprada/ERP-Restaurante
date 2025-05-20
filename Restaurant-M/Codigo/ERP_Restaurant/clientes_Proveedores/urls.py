@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.vistaModCliPro, name='homeCliPro'),
     path('clientes/nuevo/', views.vistaRegistroCli, name='agregarCli'),
     path('clientes/', views.vistaListarClientes, name="listarCli"),
+    path('clientes/actualizar/', views.vistaActualizarClientes, name="actualizarCli"),
 ]
