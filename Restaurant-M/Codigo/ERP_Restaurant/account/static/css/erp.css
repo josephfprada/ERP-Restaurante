@@ -88,6 +88,11 @@ header{
     padding: 10px;
 }
 
+.granFormulario{
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
 input[type="password"],
 input[type="email"],
 input[type="text"],
@@ -126,9 +131,9 @@ table {
 th, td {
     padding: 10px;
     text-align: left;
-    border: 1px solid #ccc;
+    border: 1px solid #101010;
 }
 
 th {
-    background-color: #f4f4f4;
+    background-color: #FFE989;
 }
