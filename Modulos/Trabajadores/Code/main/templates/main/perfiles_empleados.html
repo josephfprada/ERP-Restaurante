@@ -1,0 +1,211 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+        integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <title>Perfiles de Empleados | Recursos Humanos</title>
+
+    <style>
+        body {
+            background-color: #212121; /* Dark background */
+            color: #f8f8f8; /* Light text */
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh; /* Ensure it takes full viewport height */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: #1a1a1a; /* Even darker navbar */
+            border-bottom: 1px solid #333;
+        }
+
+        .navbar-brand,
+        .navbar-nav .nav-link {
+            color: #f8f8f8 !important;
+        }
+
+        .navbar-brand:hover,
+        .navbar-nav .nav-link:hover {
+            color: #007bff !important;
+        }
+
+        .container-fluid {
+            flex-grow: 1; /* Allows content to take up remaining space */
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        h1,
+        h3 {
+            color: #007bff; /* Blue headings */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .table-container {
+            background-color: #343434; /* Darker container for the table */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .table-bordered {
+            border-color: #555;
+        }
+
+        .table-bordered thead th,
+        .table-bordered tbody td {
+            border-color: #555;
+        }
+
+        .thead-dark th {
+            background-color: #444; /* Darker header for table */
+            color: #f8f8f8;
+        }
+
+        .table tbody tr {
+            background-color: #3a3a3a; /* Row background */
+        }
+
+        .table tbody tr:nth-of-type(odd) {
+            background-color: #303030; /* Alternate row background */
+        }
+
+        .profile-link-cell {
+            width: 50px; /* Small fixed width for the button column */
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .profile-link-button {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: #007bff; /* Blue button */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            vertical-align: middle;
+        }
+
+        .profile-link-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .profile-link-button::before {
+            content: '\25B6'; /* Right-pointing triangle unicode character */
+            color: white;
+            font-size: 16px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            line-height: 1;
+        }
+
+        .no-employees-message {
+            text-align: center;
+            margin-top: 50px;
+            color: #aaa;
+        }
+
+        .footer {
+            background-color: #1a1a1a;
+            color: #888;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: auto; /* Pushes the footer to the bottom */
+            border-top: 1px solid #333;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="{% url 'Home' %}">Recursos Humanos</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'Home' %}">Dashboard General</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'perfil_empleado_lista' %}">Perfiles de Empleados <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'registrar_empleado' %}">Registrar Empleado</a>
+                </li>
+                {# Add other main navigation links here #}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <h1>Perfiles de Empleados</h1>
+
+        {% if empleados %}
+        <div class="table-container mx-auto"> {# mx-auto for centering #}
+            <h3 class="text-left mb-3" style="color: #f8f8f8;">Lista de Empleados</h3>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="profile-link-cell"></th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Puesto</th>
+                        <th>Estado</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for empleado in empleados %}
+                    <tr>
+                        <td class="profile-link-cell">
+                            {# Corrected link to point to 'empleado_detalle_editar' #}
+                            <a href="{% url 'empleado_detalle_editar' empleado.idEmpleado %}"
+                                class="profile-link-button" title="Ver/Editar Perfil"></a>
+                        </td>
+                        <td>{{ empleado.nombreEmpleado }}</td>
+                        <td>{{ empleado.apellidoEmpleado }}</td>
+                        <td>{{ empleado.puesto }}</td>
+                        <td>{{ empleado.estado }}</td>
+                        <td class="text-center">
+                            <a href="{% url 'realizar_evaluacion' empleado.idEmpleado %}"
+                                class="btn btn-info btn-sm" title="Evaluar Desempeño">Evaluar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="no-employees-message">No hay empleados registrados.</p>
+        {% endif %}
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Recursos Humanos | Restaurant-M</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

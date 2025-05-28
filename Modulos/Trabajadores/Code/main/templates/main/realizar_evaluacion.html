@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+        integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <title>Evaluar Desempeño | Recursos Humanos</title>
+
+    <style>
+        body {
+            background-color: #212121; /* Dark background */
+            color: #f8f8f8; /* Light text */
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh; /* Ensure it takes full viewport height */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: #1a1a1a; /* Even darker navbar */
+            border-bottom: 1px solid #333;
+        }
+
+        .navbar-brand,
+        .navbar-nav .nav-link {
+            color: #f8f8f8 !important;
+        }
+
+        .navbar-brand:hover,
+        .navbar-nav .nav-link:hover {
+            color: #007bff !important;
+        }
+
+        .container-fluid {
+            flex-grow: 1; /* Allows content to take up remaining space */
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            color: #007bff; /* Blue headings */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-container {
+            background-color: #343434; /* Darker container for the form */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group label {
+            color: #f8f8f8;
+        }
+
+        .form-control {
+            background-color: #444;
+            color: #f8f8f8;
+            border: 1px solid #555;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .messages li {
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .messages .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .messages .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .footer {
+            background-color: #1a1a1a;
+            color: #888;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: auto; /* Pushes the footer to the bottom */
+            border-top: 1px solid #333;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="{% url 'Home' %}">Recursos Humanos</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'Home' %}">Dashboard General</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'perfil_empleado_lista' %}">Perfiles de Empleados</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'registrar_empleado' %}">Registrar Empleado</a>
+                </li>
+                {# Add other main navigation links here #}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <h1>Evaluar Desempeño de {{ empleado.nombreEmpleado }} {{ empleado.apellidoEmpleado }}</h1>
+
+        <div class="form-container mx-auto">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                    <div class="text-danger small">
+                        {{ field.errors|striptags }}
+                    </div>
+                    {% endif %}
+                    {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary btn-block">Guardar Evaluación</button>
+                <a href="{% url 'perfil_empleado_lista' %}" class="btn btn-secondary btn-block mt-2">Cancelar</a>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Recursos Humanos | Restaurant-M</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

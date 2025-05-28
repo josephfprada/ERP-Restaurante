@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Subir Documento | Recursos Humanos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <style>
+        /* Estilos generales para el cuerpo */
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Contenedor principal del formulario */
+        .form-container {
+            margin-top: 50px;
+            max-width: 700px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilo para el título del formulario */
+        h2 {
+            margin-bottom: 30px;
+            text-align: center; /* Centrar el título */
+        }
+
+        /* Estilo para los campos del formulario */
+        .form-control {
+            width: 100%;
+            max-width: 500px; /* Ancho máximo para los inputs */
+            padding: 10px 15px;
+            font-size: 16px;
+            box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+        }
+
+        /* Margen inferior para cada grupo de formulario */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Centrar el formulario dentro de su contenedor */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Estilos para los mensajes de Django (éxito/error) */
+        .messages {
+            list-style: none; /* Quitar viñetas de la lista */
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .messages li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .messages .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .messages .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="form-container">
+            <h2 class="text-center">Subir Hoja de Vida o Documento</h2>
+
+            {# Bloque para mostrar mensajes de Django (éxito, error, etc.) #}
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {# Formulario de subida de documento #}
+            {# IMPORTANTE: enctype="multipart/form-data" es OBLIGATORIO para subir archivos #}
+            <form method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %} {# Token de seguridad de Django #}
+
+                {# Campo para seleccionar el Empleado (Foreign Key) #}
+                <div class="form-group">
+                    <label for="{{ form.idEmpleado.id_for_label }}">Empleado:</label>
+                    {# Renderiza el select manualmente para poblarlo con la lista de empleados #}
+                    <select name="{{ form.idEmpleado.name }}" id="{{ form.idEmpleado.id_for_label }}" class="form-control">
+                        <option value="">---------</option> {# Opción por defecto "vacía" #}
+                        {% for empleado in empleados %} {# Itera sobre la lista de empleados pasada desde la vista #}
+                            <option value="{{ empleado.idEmpleado }}" {% if form.idEmpleado.value|stringformat:"s" == empleado.idEmpleado|stringformat:"s" %}selected{% endif %}>
+                                {{ empleado.nombreEmpleado }} {{ empleado.apellidoEmpleado }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    {% if form.idEmpleado.errors %}
+                        <div class="text-danger small">{{ form.idEmpleado.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                {# Campo para el Tipo de Documento #}
+                <div class="form-group">
+                    <label for="{{ form.tipo_documento.id_for_label }}">Tipo de Documento:</label>
+                    {{ form.tipo_documento }} {# Django renderiza el input de texto #}
+                    {% if form.tipo_documento.errors %}
+                        <div class="text-danger small">{{ form.tipo_documento.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                {# Campo para la Fecha de Actualización #}
+                <div class="form-group">
+                    <label for="{{ form.fecha_actualizacion.id_for_label }}">Fecha de Actualización:</label>
+                    {{ form.fecha_actualizacion }} {# Django renderiza el input de fecha #}
+                    {% if form.fecha_actualizacion.errors %}
+                        <div class="text-danger small">{{ form.fecha_actualizacion.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                {# Campo para el Archivo (FileField) #}
+                <div class="form-group">
+                    <label for="{{ form.documento.id_for_label }}">Seleccionar Archivo:</label>
+                    {{ form.documento }} {# Django renderiza <input type="file"> #}
+                    {% if form.documento.errors %}
+                        <div class="text-danger small">{{ form.documento.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+
+                {# Botón de envío del formulario #}
+                <button type="submit" class="btn btn-primary btn-block">Subir Documento</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

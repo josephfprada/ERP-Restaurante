@@ -1,0 +1,175 @@
+{# main/templates/empleado_detalle_editar.html #}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Perfil | {{ empleado.nombreEmpleado }} {{ empleado.apellidoEmpleado }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #212121;
+            font-family: 'Roboto', sans-serif;
+            color: #f8f8f8;
+        }
+
+        .form-container {
+            margin-top: 50px;
+            max-width: 700px;
+            padding: 30px;
+            background-color: #343434;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            color: #f8f8f8;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            text-align: center;
+            color: #007bff;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: #444;
+            color: #f8f8f8;
+            border: 1px solid #555;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .btn-primary { /* Changed from btn-success for primary action */
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .btn-secondary { /* For the cancel/back button */
+            background-color: #6c757d;
+            border-color: #6c757d;
+            margin-top: 10px; /* Add some space */
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        /* Messages styling */
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .messages li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .messages .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .messages .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .text-danger.small {
+            font-size: 0.875em;
+            color: #ff6b6b;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="form-container">
+            <h2 class="text-center">Editar Perfil de Empleado</h2>
+            <h3 class="text-center" style="color: #f8f8f8;">{{ empleado.nombreEmpleado }} {{ empleado.apellidoEmpleado }}</h3>
+
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                    <div class="text-danger small">
+                        {{ field.errors|striptags }}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <button name="save" type="submit" class="btn btn-primary btn-block" value="save">Guardar Cambios</button>
+                <a href="{% url 'perfil_empleado_lista' %}" class="btn btn-secondary btn-block">Cancelar</a>
+            </form>
+
+            <button type="button" class="btn btn-danger btn-block mt-2" data-toggle="modal" data-target="#confirmDeleteModal">
+                Eliminar Empleado
+            </button>
+
+            <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content bg-dark text-light">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar Eliminación</h5>
+                            <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Estás seguro de que deseas eliminar a {{ empleado.nombreEmpleado }} {{ empleado.apellidoEmpleado }}? Esta acción no se puede deshacer.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <form method="post" action="{% url 'eliminar_empleado' empleado.idEmpleado %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
