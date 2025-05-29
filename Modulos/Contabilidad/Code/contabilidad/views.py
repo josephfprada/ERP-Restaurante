@@ -13,7 +13,7 @@ from openpyxl.styles import Font, Alignment, Border, Side # type: ignore
 
 # Create your views here.
 def login(request):
-    return render(request, 'contablidad/login.html')
+    return render(request, 'contabilidad/login.html')
 
 def index(request):
 
