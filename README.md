@@ -16,4 +16,4 @@ Para correr el programa siga estos pasos:
 4. Por último en "restaurante_erp > restaurante_erp > settings.py", busca "'PASWWORD':'root'" y cambia la contraseña por la que tengas en el usuario "root".
 5. Escribe el comando "py manage.py migrate", para crear las tablas necesarias dentro de "restaurante_erp".
 6. Ahora en la terminal de Visual escribir "py manage.py runserver", para iniciar el servidor local, es IMPORTANTE tener en cuenta que que al escribir el comando tienes que estar en el diretorio que contenga al archivo "manage.py", sino no funcionara.
-7. Al escribir el comando empezara a aparecera la url de prueba, manten el mouse encima y oprime "follow link" (o copia y pega la url, "https://127.0.0.1:8080/")
+7. Al escribir el comando empezara a aparecera la url de prueba, manten el mouse encima y oprime "follow link" (o copia y pega la url, "https://127.0.0.1:8000/")
