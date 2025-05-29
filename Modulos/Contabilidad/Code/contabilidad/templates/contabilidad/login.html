@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Admin Panel | Log in</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+    integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <section class="h-100 gradient-form" style="background-color: #eee;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-xl-10">
+          <div class="card rounded-3 text-black">
+            <div class="row g-0 justify-content-center">
+              <div class="col-lg-6 col-md-8">
+                <div class="card-body p-md-5 mx-md-4">
+
+                  <div class="text-center">
+                    <img src="https://t3.ftcdn.net/jpg/05/39/63/88/240_F_539638813_CcdRx5ZDVR5pkEB35iDn7qVxtNCiRrRN.jpg"
+                      style="width: 200px;" alt="logo">
+                    <h4 class="mt-1 mb-5 pb-1">Restaurant-M | Contabilidad</h4>
+                  </div>
+
+                  <form>
+                    <p><b>Por favor ingrese con las credenciales asignadas.</b></p>
+
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form2Example11">Usuario</label>
+                      <input type="email" id="form2Example11" class="form-control"
+                        placeholder="Phone number or email address" />
+                    </div>
+
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form2Example22">Contraseña</label>
+                      <input type="password" id="form2Example22" class="form-control" />
+                    </div>
+
+                    <div class="text-center pt-1 mb-5 pb-1">
+                      <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button"
+                        onclick="iniciarSesion()">Ingresar</button>
+                      <a href="#!" class="text-body" onclick="showAlert()">Olvidé mi contraseña</a>
+                    </div>
+
+                    <div id="alertMessage" class="alert alert-danger" role="alert" style="display: none;">
+                      Por favor, póngase en contacto con el administrador del ERP.
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    let intentosFallidos = 0;
+
+    function iniciarSesion() {
+      const usuario = document.getElementById("form2Example11").value.trim();
+      const contrasena = document.getElementById("form2Example22").value.trim();
+      const alerta = document.getElementById("alertMessage");
+
+      // Check for empty fields first
+      if (usuario === "" || contrasena === "") {
+        alerta.innerText = "Por favor, complete todos los campos.";
+        alerta.style.display = "block";
+        setTimeout(() => {
+          alerta.style.display = "none";
+        }, 7000);
+        return;
+      }
+
+      if (usuario === "admin" && contrasena === "admin") {
+        window.location.href = "{% url 'Index' %}";
+      } else {
+        intentosFallidos++;
+
+        if (intentosFallidos >= 3) {
+          alerta.innerText = "Demasiados intentos fallidos. Contacte al administrador.";
+        } else {
+          alerta.innerText = "Credenciales incorrectas.";
+        }
+
+        alerta.style.display = "block";
+
+        setTimeout(() => {
+          alerta.style.display = "none";
+        }, 7000);
+      }
+    }
+
+    let clickCount = 0;
+    function showAlert() {
+      const alertElement = document.getElementById("alertMessage");
+      clickCount++;
+
+      if (clickCount > 3) {
+        alertElement.innerText = "Has hecho clic demasiadas veces. Por favor, espera o contacta al administrador del ERP.";
+      } else{
+        alertElement.innerText = "Debe de comunicarse con el administrador del ERP";
+      }
+
+      alertElement.style.display = "block";
+
+      setTimeout(() => {
+        alertElement.style.display = "none";
+      }, 7000);
+    }
+
+  </script>
+
+</body>
+
+</html>

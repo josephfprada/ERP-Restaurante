@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+        integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <title>Gestión de Facturas - Contabilidad</title>
+
+    <style>
+        .vh-100 { height: 100vh; }
+        .border-right { border-right: 1px solid #ccc; }
+        .border-left { border-left: 1px solid #ccc; }
+        .nav-link { cursor: pointer; }
+        .form-section, .list-section {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-align: left; /* Asegura que el contenido del formulario esté alineado a la izquierda */
+        }
+        .form-section h4, .list-section h4 {
+            color: #0056b3;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .table thead th {
+            background-color: #0056b3;
+            color: white;
+        }
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .messages {
+            list-style: none;
+            padding: 0;
+        }
+        .messages li {
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .messages .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .messages .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="text-center p-3">Gestión de Facturas</h1>
+    <hr>
+
+    <div class="container-fluid">
+        <div class="row vh-100">
+            <div class="col-md-3 border-right">
+                <h5 class="text-center mt-3">Menú Contabilidad</h5>
+                <ul class="nav flex-column px-3 mt-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Index' %}">
+                            <i class="fa fa-dashboard"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse"
+                            href="{% url 'CuentasContables' %}" role="button" aria-expanded="false">
+                            Cuentas Contables
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse"
+                            href="{% url 'GestionComprobantes' %}" role="button" aria-expanded="false">
+                            Comprobantes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-6 text-center">
+                <h2 class="mt-4 mb-4">Crear Nueva Factura</h2>
+
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <div class="form-section">
+                    <form method="post">
+                        {% csrf_token %} {% for field in form %}
+                            <div class="form-group">
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                {% endif %}
+                                {% for error in field.errors %}
+                                    <div class="alert alert-danger mt-1">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger mt-3">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary mt-3">Guardar Factura</button>
+                    </form>
+                </div>
+
+                <hr class="mt-5 mb-5">
+
+                <h2 class="mt-4 mb-4">Facturas Existentes</h2>
+                <div class="list-section">
+                    {% if facturas %}
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Número</th>
+                                        <th>Fecha</th>
+                                        <th>Tipo</th>
+                                        <th>Cliente/Proveedor</th>
+                                        <th>Monto Total</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for factura in facturas %}
+                                    <tr>
+                                        <td>{{ factura.numero_factura }}</td>
+                                        <td>{{ factura.fecha_factura|date:"d M Y" }}</td>
+                                        <td>{{ factura.get_tipo_factura_display }}</td>
+                                        <td>{{ factura.nombre_cliente_proveedor }}</td>
+                                        <td>$ {{ factura.monto_total|floatformat:2 }}</td>
+                                        <td>
+                                            <span class="badge 
+                                                {% if factura.estado == 'EMITIDA' %}badge-info
+                                                {% elif factura.estado == 'PAGADA' %}badge-success
+                                                {% elif factura.estado == 'PAGADA_PARCIALMENTE' %}badge-warning
+                                                {% elif factura.estado == 'ANULADA' %}badge-danger
+                                                {% else %}badge-secondary{% endif %}">
+                                                {{ factura.get_estado_display }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'VerFacturas' factura.pk %}" class="btn btn-sm btn-info">Ver</a>
+                                            <a href="{% url 'EditarFactura' factura.pk %}" class="btn btn-sm btn-warning">Editar</a>
+</td>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No hay facturas registradas todavía.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-md-3 border-left text-center">
+                <h5 class="mt-5 text-muted">Información Adicional</h5>
+                <p class="text-muted">Espacio para detalles de facturación o ayuda.</p>
+                <ul class="list-group mt-4">
+                    <li class="list-group-item">Guía de creación de facturas.</li>
+                    <li class="list-group-item">Preguntas frecuentes.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+        integrity="sha384-h0AbiZCdFzU/Oq7TIDj/XgKKWc6HTWRjx9oWrH9KlOw+PqGq9NnrjNPDk9zI"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
